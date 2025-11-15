@@ -1,0 +1,18 @@
+import React from 'react';
+export default function ServiceCard({service, onBuy}){
+  return (
+    <div className="card">
+      <div className="flex items-center gap-4">
+        <img src={`/logos/${service.logo}`} alt="logo" className="w-12 h-12 rounded" />
+        <div>
+          <div className="font-semibold">{service.name}</div>
+          <div className="text-sm text-gray-500">{service.description}</div>
+        </div>
+      </div>
+      <div className="mt-4 flex items-center justify-between">
+        <div className="text-lg font-bold">{service.price} AITK</div>
+        <button onClick={()=>onBuy(service)} className="px-4 py-2 bg-indigo-600 text-white rounded">Buy</button>
+      </div>
+    </div>
+  );
+}
