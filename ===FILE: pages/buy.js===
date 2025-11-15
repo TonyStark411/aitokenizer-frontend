@@ -1,0 +1,10 @@
+import React from 'react';
+
+export default function Buy(){
+  return (
+    <div>
+      <h2 className="text-2xl font-bold">Buy AITK</h2>
+      <p className="text-gray-600">Links to QuickSwap pools, step-by-step guide to add liquidity and buy AITK.</p>
+    </div>
+  );
+}
