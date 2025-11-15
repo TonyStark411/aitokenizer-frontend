@@ -1,0 +1,33 @@
+import React, {useState} from 'react';
+import { backend } from '../lib/api';
+
+export default function AdminServiceForm({onSaved}){
+  const [name,setName]=useState('');
+  const [price,setPrice]=useState('');
+  const [desc,setDesc]=useState('');
+  const [logo,setLogo]=useState('openai.png');
+
+  async function save(e){
+    e.preventDefault();
+    try{
+      await backend.post('/api/admin/services',{ name, price, description:desc, logo });
+      onSaved && onSaved();
+      alert('Saved');
+    }catch(err){ console.error(err); alert('Save failed'); }
+  }
+
+  return (
+    <form onSubmit={save} className="space-y-3">
+      <input value={name} onChange={e=>setName(e.target.value)} placeholder="Service name" className="w-full p-2 border rounded" />
+      <input value={price} onChange={e=>setPrice(e.target.value)} placeholder="Price in AITK" className="w-full p-2 border rounded" />
+      <textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Short description" className="w-full p-2 border rounded" />
+      <select value={logo} onChange={e=>setLogo(e.target.value)} className="w-full p-2 border rounded">
+        <option value="openai.png">OpenAI</option>
+        <option value="anthropic.png">Anthropic</option>
+        <option value="google.png">Google</option>
+        <option value="huggingface.png">HuggingFace</option>
+      </select>
+      <div><button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Register Service</button></div>
+    </form>
+  );
+}
