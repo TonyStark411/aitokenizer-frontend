@@ -1,0 +1,20 @@
+import React from 'react';
+import AdminServiceForm from '../../components/AdminServiceForm';
+
+export default function Admin(){
+  return (
+    <div>
+      <h2 className="text-2xl font-bold">Admin Console</h2>
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="card">
+          <h3 className="font-semibold">Register New Service</h3>
+          <AdminServiceForm onSaved={()=>window.location.reload()} />
+        </div>
+        <div className="card">
+          <h3 className="font-semibold">Manage Services</h3>
+          <p className="text-sm text-gray-600">List and manage services from backend</p>
+        </div>
+      </div>
+    </div>
+  );
+}
