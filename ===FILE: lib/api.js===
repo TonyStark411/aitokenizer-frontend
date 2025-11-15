@@ -1,0 +1,3 @@
+import axios from 'axios';
+const API = process.env.NEXT_PUBLIC_BACKEND_API || 'https://ai-tokenizer-gateway.onrender.com';
+export const backend = axios.create({ baseURL: API, timeout: 10000 });
