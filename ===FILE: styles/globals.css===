@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body { background: linear-gradient(180deg,#f8fafc 0%, #eef2ff 100%); color: #0b1220; }
+
+.card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 6px 18px rgba(10,25,47,0.06); }
