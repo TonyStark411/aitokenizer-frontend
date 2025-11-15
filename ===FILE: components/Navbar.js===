@@ -1,0 +1,23 @@
+import React from 'react';
+import WalletConnectButton from './WalletConnectButton';
+
+export default function Navbar(){
+  return (
+    <nav className="bg-white shadow-sm rounded-lg p-4 mb-6">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <img src="/logos/openai.png" alt="logo" className="w-10 h-10 rounded" />
+          <div>
+            <div className="text-xl font-semibold">AITokenizer</div>
+            <div className="text-sm text-gray-600">AI access via AITK token</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="/marketplace" className="text-sm text-gray-700">Marketplace</a>
+          <a href="/docs" className="text-sm text-gray-700">API Docs</a>
+          <WalletConnectButton />
+        </div>
+      </div>
+    </nav>
+  );
+}
