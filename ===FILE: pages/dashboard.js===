@@ -1,0 +1,41 @@
+import React, { useEffect, useState } from 'react';
+import { getBrowserProvider } from '../lib/ethersProvider';
+import { backend } from '../lib/api';
+
+export default function Dashboard(){
+  const [account, setAccount] = useState(null);
+  const [payments, setPayments] = useState([]);
+
+  useEffect(()=>{
+    (async ()=>{
+      try{
+        const p = await getBrowserProvider();
+        if(p){ const s = await p.getSigner(); setAccount(await s.getAddress()); }
+      }catch(e){}
+    })();
+
+    async function load(){
+      try{ const res = await backend.get('/api/payments'); setPayments(res.data.data || []); }catch(e){}
+    }
+    load();
+  },[]);
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold">User Dashboard</h2>
+      <div className="mt-4">Connected: {account || 'Not connected'}</div>
+      <div className="mt-6">
+        <h3 className="font-semibold">Recent Payments</h3>
+        <div className="space-y-2 mt-2">
+          {payments.map(p=> (
+            <div key={p._id} className="p-3 border rounded bg-white">
+              <div className="text-sm">Payer: {p.payer}</div>
+              <div className="text-sm">Service: {p.serviceId}</div>
+              <div className="text-sm">Amount: {p.amountPaid}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
