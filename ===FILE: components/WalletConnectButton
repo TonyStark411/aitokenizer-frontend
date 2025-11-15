@@ -1,0 +1,28 @@
+import React, { useState, useEffect } from 'react';
+import { getBrowserProvider } from '../lib/ethersProvider';
+
+export default function WalletConnectButton(){
+  const [account, setAccount] = useState(null);
+  useEffect(()=>{
+    if(typeof window !== 'undefined' && window.ethereum){
+      window.ethereum.on('accountsChanged', (accounts)=> setAccount(accounts[0]||null));
+    }
+  },[]);
+
+  async function connect(){
+    try{
+      const p = await getBrowserProvider();
+      if(!p) return alert('Install MetaMask');
+      const signer = await p.getSigner();
+      const addr = await signer.getAddress();
+      setAccount(addr);
+    }catch(e){ console.error(e); alert('Connection failed'); }
+  }
+
+  return (
+    <div>
+      {account ? <div className="text-sm text-gray-700">{account.slice(0,6)}...{account.slice(-4)}</div>
+               : <button onClick={connect} className="px-4 py-2 bg-blue-600 text-white rounded">Connect</button>}
+    </div>
+  );
+}
